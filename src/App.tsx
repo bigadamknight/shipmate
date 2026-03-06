@@ -9,6 +9,7 @@ import { useAudioMouth } from './hooks/useAudioMouth'
 import type { CompanionState } from './types'
 
 const AGENT_ID = import.meta.env.VITE_ELEVENLABS_AGENT_ID as string | undefined
+const DEBUG = new URLSearchParams(window.location.search).has('debug')
 
 export function App() {
   const [state, setState] = useState<CompanionState>('idle')
@@ -34,7 +35,7 @@ export function App() {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {editMode && <EditPanel state={state} svgCoords={svgCoords} />}
       <div style={{ flex: 1, position: 'relative' }}>
-        <Character state={state} editMode={editMode} eyeOffset={eyeOffset} bodyOffset={bodyOffset} mouthOpenness={mouthOpenness} faceTrackDebug={faceTrack} faceTrackStatus={faceTrackStatus} onSvgClick={handleSvgClick} />
+        <Character state={state} editMode={editMode} eyeOffset={eyeOffset} bodyOffset={bodyOffset} mouthOpenness={mouthOpenness} faceTrackDebug={DEBUG && faceTrack} faceTrackStatus={faceTrackStatus} onSvgClick={handleSvgClick} />
       </div>
       <Controls
         state={state}
